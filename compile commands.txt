@@ -1,0 +1,20 @@
+//Boot
+nasm -felf32 boot.asm -o boot.o
+
+//Kernel
+i686-elf-gcc -c kernel.c -o kernel.o -std=gnu99 -ffreestanding -O2 -Wall -Wextra
+
+//Linker
+i686-elf-gcc -T linker.ld -o luxos.bin -ffreestanding -O2 -nostdlib boot.o kernel.o -lgcc
+
+//GRUB (in Ubuntu)
+//Laptop directory: cd /mnt/d/LuxOS\ Laptop\ Edition (mount with 'sudo mount -t drvfs d: /mnt/d')
+//Windows directory: cd /mnt/f/LuxOS\ Laptop\ Edition (mount with 'sudo mount -t drvfs f: /mnt/f')
+mkdir -p isodir/boot/grub
+cp luxos.bin isodir/boot/luxos.bin
+cp grub.cfg isodir/boot/grub/grub.cfg
+grub-mkrescue -o luxos.iso isodir
+
+//Run
+qemu-system-i386 -cdrom luxos.iso
+(optional) qemu-system-i386 -kernel luxos.bin

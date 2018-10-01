@@ -10,6 +10,7 @@
 #include "multiboot.h"
 #include "terminal.h"
 #include "utils.h"
+//#include "cmos.h"
 //#include "monitor.h"
 
 /* Check if the compiler thinks we are targeting the wrong operating system. */
@@ -59,4 +60,10 @@ void kernel_main(multiboot_info_t *mboot_info, unsigned int magic)
 	//vbe_mode_info_v = (vbe_mode_info_struct_t*)(mboot_ptr->vbe_mode_info);
 	//unsigned char* screen = (unsigned char*)(vbe_mode_info_v->framebuffer);
 	//putpixel(screen, 1,1, 5);
+
+	//uint16_t *month, *day;
+	//get_date(month, day);
+	//terminal_writestring("MONTH: ");
+	//terminal_writeint_colored(month, VGA_COLOR_LIGHT_RED, BOOT_BACKGROUND_COLOR);
+	//terminal_writestring("\n");
 }
